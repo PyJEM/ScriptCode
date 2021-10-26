@@ -9,12 +9,12 @@ import sys
 
 from PyQt5.QtWidgets import QWidget, QApplication
 from PyQt5 import QtCore
-from PyJEM.offline import TEM3
+from PyJEM import TEM3
 from time import sleep
 import datetime
 import configparser
 
-from gui_AutoStepHT24_py38 import Ui_AutoStepHT
+from gui_AutoStepHT26_py38 import Ui_AutoStepHT
 
 TEM3.connect()
  
@@ -31,7 +31,26 @@ class Test(QWidget):
     self.gun = TEM3.GUN3()
 
     global setstage
-    setstage = self.ui.comboBox_13.currentIndex()
+    
+    
+    
+    cb1 = self.ui.radioButton.isChecked()
+    
+    cb2 = self.ui.radioButton_2.isChecked()
+    
+    cb3 = self.ui.radioButton_3.isChecked()
+    
+    cb4 = self.ui.radioButton_4.isChecked()
+    
+    if (cb1 == True):
+        setstage = 0
+    elif (cb2 == True):
+        setstage = 1
+    elif (cb3 == True):
+        setstage = 2
+    elif (cb4 == True):
+        setstage = 3           
+
     print(setstage)
 
     if (setstage == 0):
@@ -525,11 +544,30 @@ class Test(QWidget):
     with open('config_AutoStepHT2.ini', 'w') as file:
         config.write(file)
         
+  def autoht(self):
+      print("autoht")
+
+      cb1 = self.ui.radioButton.isChecked()
+    
+      cb2 = self.ui.radioButton_2.isChecked()
+    
+      cb3 = self.ui.radioButton_3.isChecked()
+    
+      cb4 = self.ui.radioButton_4.isChecked()
+    
+      if (cb1 == True):
+        self.autoHT1()
+      elif (cb2 == True):
+        self.autoHT2()
+      elif (cb3 == True):
+        self.autoHT3()
+      elif (cb4 == True):
+        self.autoHT4()       
+
+
 
   def autoHT1(self):
-
-    if (setstage == 0):
-
+      
       num = HT1 * 1000
       
       now = datetime.datetime.now()
@@ -567,10 +605,10 @@ class Test(QWidget):
          self.ui.label_14.setText("Break")
             
        
-  #def autoHT2(self):
-    elif (setstage == 1):  
+  def autoHT2(self):
+      
       num = HT1 * 1000
-      print("stage_HT2")
+      
       now = datetime.datetime.now()
       #print('Start:{0:%Y/%m/%d-%H:%M:%S}'.format(now))
       timeHT2 = stage2
@@ -617,10 +655,10 @@ class Test(QWidget):
                      break
  
 
-  #def autoHT3(self):
-    elif (setstage == 2):  
+  def autoHT3(self):
+      
       num = HT1 * 1000
-      print("stage_HT3")
+      
       now = datetime.datetime.now()
       #print('Start:{0:%Y/%m/%d-%H:%M:%S}'.format(now))
       
@@ -690,10 +728,10 @@ class Test(QWidget):
                              self.ui.label_14.setText("Complite")
                              break
 
-  #def autoHT4(self):
-    elif (setstage ==4) :
+  def autoHT4(self):
+      
       num = HT1 * 1000
-      print("stage4")
+      
       now = datetime.datetime.now()
       #print('Start:{0:%Y/%m/%d-%H:%M:%S}'.format(now))
       timeHT4 = stage4
@@ -771,12 +809,6 @@ class Test(QWidget):
                                   if a == HT5k:
                                       self.ui.label_14.setText("Complite")
                                       break
-  def autoHT2(self):
-      print("2")
-  def autoHT3(self):
-      print("3")
-  def autoHT4(self):  
-      print("4")      
 
   def save(self):
 
@@ -811,8 +843,25 @@ class Test(QWidget):
 
 #GUIの表示の切り替え        
   def setstage(self):
-        setstage = self.ui.comboBox_13.currentIndex()
-        print(setstage)
+
+        cb1 = self.ui.radioButton.isChecked()
+    
+        cb2 = self.ui.radioButton_2.isChecked()
+    
+        cb3 = self.ui.radioButton_3.isChecked()
+    
+        cb4 = self.ui.radioButton_4.isChecked()
+    
+        if (cb1 == True):
+            setstage = 0
+        elif (cb2 == True):
+            setstage = 1
+        elif (cb3 == True):
+            setstage = 2
+        elif (cb4 == True):
+            setstage = 3           
+
+            print(setstage)      
 
         if (setstage == 0):
           self.ui.label_19.hide()
